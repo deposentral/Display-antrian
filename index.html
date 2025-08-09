@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Display Antrian Apotek</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      margin: 10px 0;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .box {
+      flex: 1;
+      min-width: 250px;
+      padding: 30px;
+      border-radius: 10px;
+    }
+    .umum { background-color: #0099ff; }
+    .bpjs { background-color: #8888ff; }
+    .prioritas { background-color: #ff4d4d; }
+    .racikan {
+      background-color: #222;
+      flex-basis: 100%;
+      margin-top: 20px;
+    }
+    h1 { font-size: 60px; }
+    #racikan {
+      font-size: 40px;
+      line-height: 1.5;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    #racikan span {
+      display: inline-block;
+    }
+    #clock { font-size: 18px; margin-top: 10px; }
+
+    /* Auto kapital untuk semua nomor */
+    #umum, #bpjs, #prioritas, #racikan {
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <h2>RSUD SULTAN SURIANSYAH</h2>
+  <div id="clock"></div>
+
+  <div class="container">
+    <div class="box umum">
+      <h3>RESEP UMUM</h3>
+      <h1 id="umum">A00</h1>
+    </div>
+    <div class="box bpjs">
+      <h3>RESEP BPJS</h3>
+      <h1 id="bpjs">B00</h1>
+    </div>
+    <div class="box prioritas">
+      <h3>RESEP PRIORITAS</h3>
+      <h1 id="prioritas">C00</h1>
+    </div>
+    <div class="box racikan">
+      <h3>SEDANG DIRACIK</h3>
+      <div id="racikan">-</div>
+    </div>
+  </div>
+
+  <script>
+    const sheetUrlBase = "https://script.google.com/macros/s/AKfycbyuQ7AEtiEwL2Mk3QxcB9q_ySvT2awXFc3mU2nYYABPrmXx_G2dYLCvPfqmD0S7PqFL9w/exec";
+
+    function updateClock() {
+      const now = new Date();
+      const waktu = now.toLocaleString("id-ID", {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      document.getElementById("clock").innerText = waktu;
+    }
+
+    async function fetchData() {
+      try {
+        const res = await fetch(sheetUrlBase + "?_t=" + Date.now(), { cache: "no-store" });
+        const data = await res.json();
+
+        document.getElementById("umum").innerText = data.umum || "-";
+        document.getElementById("bpjs").innerText = data.bpjs || "-";
+        document.getElementById("prioritas").innerText = data.prioritas || "-";
+
+        if (data.racikan && data.racikan !== "-") {
+          const nomor = data.racikan.split(",").map(n => n.trim()).filter(n => n);
+          document.getElementById("racikan").innerHTML = nomor.map(n => `<span>${n}</span>`).join("");
+        } else {
+          document.getElementById("racikan").innerText = "-";
+        }
+      } catch (e) {
+        console.error("Gagal mengambil data:", e);
+      }
+    }
+
+    updateClock();
+    fetchData();
+
+    setInterval(updateClock, 1000);
+    setInterval(fetchData, 3000);
+  </script>
+</body>
+</html>
