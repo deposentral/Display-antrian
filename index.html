@@ -5,9 +5,9 @@
   <title>Display Antrian Apotek</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
       text-align: center;
       padding: 20px;
     }
@@ -15,11 +15,16 @@
       margin: 10px 0;
     }
 
-    /* Perbesar judul kategori */
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+    }
+
     h3 {
-      font-size: 32px !important;
+      font-size: 24px;
       font-weight: bold;
       text-transform: uppercase;
+      color: #555;
     }
 
     .container {
@@ -32,39 +37,50 @@
     .box {
       flex: 1;
       min-width: 250px;
-      padding: 30px;
-      border-radius: 10px;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border-top: 6px solid transparent;
     }
-    .umum { background-color: #0099ff; }
-    .bpjs { background-color: #8888ff; }
-    .prioritas { background-color: #ff4d4d; }
+
+    .umum { border-top: 6px solid #4a90e2; }
+    .bpjs { border-top: 6px solid #7b68ee; }
+    .prioritas { border-top: 6px solid #fb4d3d; }
     .racikan {
-      background-color: #222;
+      background-color: #fff;
       flex-basis: 100%;
       margin-top: 20px;
+      border-top: 6px solid #999;
     }
 
-    /* Ukuran nomor antrian */
-    h1 { font-size: 60px; }
-
-    /* Ukuran racikan sama besar */
-    #racikan {
+    /* Nomor antrian seragam */
+    h1, #racikan {
       font-size: 60px;
-      line-height: 1.5;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    /* Racikan dengan separator */
+    #racikan {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
     }
     #racikan span {
       display: inline-block;
     }
-    #clock { font-size: 18px; margin-top: 10px; }
-
-    /* Auto kapital */
-    #umum, #bpjs, #prioritas, #racikan {
-      text-transform: uppercase;
+    #racikan span::after {
+      content: "|";
+      margin-left: 10px;
+      color: #aaa;
     }
+    #racikan span:last-child::after {
+      content: "";
+    }
+
+    #clock { font-size: 18px; margin-top: 10px; color: #666; }
   </style>
 </head>
 <body>
@@ -112,12 +128,8 @@
         document.getElementById("prioritas").innerText = data.prioritas || "-";
 
         if (data.racikan && data.racikan !== "-") {
-          const nomor = data.racikan
-            .split(",")
-            .map(n => n.trim())
-            .filter(n => n);
-          document.getElementById("racikan").innerHTML =
-            nomor.map(n => `<span>${n}</span>`).join('<span>|</span>');
+          const nomor = data.racikan.split(",").map(n => n.trim()).filter(n => n);
+          document.getElementById("racikan").innerHTML = nomor.map(n => `<span>${n}</span>`).join("");
         } else {
           document.getElementById("racikan").innerText = "-";
         }
