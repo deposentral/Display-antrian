@@ -71,6 +71,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
+      color: white;
     }
 
     #racikan span {
@@ -213,7 +214,11 @@
 
         if (data.racikan && data.racikan !== "-") {
           const nomor = data.racikan.split(",").map(n => n.trim()).filter(n => n);
-          document.getElementById("racikan").innerHTML = nomor.map(n => `<span>${n}</span>`).join("");
+          document.getElementById("racikan").innerHTML = nomor
+            .map((n, i) => i === nomor.length - 1
+              ? `<span>${n}</span>`
+              : `<span>${n}</span><span style="color:#ccc; margin: 0 8px;">|</span>`)
+            .join("");
         } else {
           document.getElementById("racikan").innerText = "-";
         }
