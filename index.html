@@ -7,19 +7,20 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #e8f5e9, #ffffff);
-      color: #333;
+      background-color: #265158; /* Gelap dari palette */
+      color: #c5f0e9; /* Teks terang lembut */
       text-align: center;
       padding: 20px;
-      margin-bottom: 60px; /* ruang bawah untuk motivasi */
+      margin-bottom: 60px;
     }
+
     h1, h2, h3 {
       margin: 10px 0;
     }
 
     h2 {
       font-weight: 600;
-      color: #2e7d32;
+      color: #9fddd2; /* Hijau muda kontras */
     }
 
     h3 {
@@ -30,6 +31,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      color: #c5f0e9;
     }
 
     .container {
@@ -45,18 +47,14 @@
       min-width: 250px;
       padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       color: white;
     }
 
-    .umum { background-color: #4CAF50; }
-    .bpjs { background-color: #009688; }
-    .prioritas { background-color: #FB6B5B; }
-    .racikan {
-      background-color: #03A9F4;
-      flex-basis: 100%;
-      margin-top: 20px;
-    }
+    .umum { background-color: #63a99e; }
+    .bpjs { background-color: #9fddd2; color: #265158; }
+    .prioritas { background-color: #eb4a04; }
+    .racikan { background-color: #fe8e36; flex-basis: 100%; margin-top: 20px; }
 
     h1 {
       font-size: 60px;
@@ -74,21 +72,12 @@
       color: white;
     }
 
-    #racikan span {
-      display: inline-block;
-    }
-
     #clock {
       font-size: 18px;
       margin-top: 5px;
-      color: #555;
+      color: #c5f0e9;
     }
 
-    #umum, #bpjs, #prioritas, #racikan {
-      text-transform: uppercase;
-    }
-
-    /* Separator */
     .separator {
       height: 4px;
       background-color: rgba(255,255,255,0.4);
@@ -103,13 +92,12 @@
       fill: white;
     }
 
-    /* Area teks penyemangat di bawah */
     #motivasi {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: #e6f8f0; /* hijau mint lembut */
-      color: #0b6e4f; /* hijau gelap */
+      background-color: #63a99e;
+      color: #265158;
       text-align: center;
       font-size: 1.5em;
       font-weight: bold;
@@ -117,7 +105,7 @@
       font-family: 'Segoe UI', sans-serif;
       transition: opacity 1s ease-in-out;
       opacity: 1;
-      box-shadow: 0 -2px 8px rgba(11, 110, 79, 0.3);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
       z-index: 1000;
     }
   </style>
@@ -129,12 +117,10 @@
   <div class="container">
     <div class="box umum">
       <h3>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
-          10-4.48 10-10S17.52 2 12 2zm1 17.93c-2.83.48-5.51-1.51-6-4.34-.49-2.82 
-          1.5-5.5 4.34-5.99V5h2v4.59c2.83.49 4.82 3.17 4.33 5.99-.49 
-          2.83-3.17 4.82-5.99 4.34z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+        10-4.48 10-10S17.52 2 12 2zm1 17.93c-2.83.48-5.51-1.51-6-4.34-.49-2.82 
+        1.5-5.5 4.34-5.99V5h2v4.59c2.83.49 4.82 3.17 4.33 5.99-.49 
+        2.83-3.17 4.82-5.99 4.34z"/></svg>
         RESEP UMUM
       </h3>
       <div class="separator"></div>
@@ -143,13 +129,11 @@
 
     <div class="box bpjs">
       <h3>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 4.14c-3.95 0-7.17 3.22-7.17 
-          7.17s3.22 7.17 7.17 7.17 7.17-3.22 7.17-7.17S15.95 
-          4.14 12 4.14zm0 12.35c-2.86 0-5.18-2.32-5.18-5.18S9.14 
-          6.14 12 6.14s5.18 2.32 5.18 5.18-2.32 5.18-5.18 
-          5.18z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4.14c-3.95 0-7.17 3.22-7.17 
+        7.17s3.22 7.17 7.17 7.17 7.17-3.22 7.17-7.17S15.95 
+        4.14 12 4.14zm0 12.35c-2.86 0-5.18-2.32-5.18-5.18S9.14 
+        6.14 12 6.14s5.18 2.32 5.18 5.18-2.32 5.18-5.18 
+        5.18z"/></svg>
         RESEP BPJS
       </h3>
       <div class="separator"></div>
@@ -158,14 +142,12 @@
 
     <div class="box prioritas">
       <h3>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 
-          12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 
-          0 3.41.81 4.5 2.09C13.09 3.81 14.76 
-          3 16.5 3 19.58 3 22 5.42 22 
-          8.5c0 3.78-3.4 6.86-8.55 
-          11.54L12 21.35z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 
+        12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 
+        0 3.41.81 4.5 2.09C13.09 3.81 14.76 
+        3 16.5 3 19.58 3 22 5.42 22 
+        8.5c0 3.78-3.4 6.86-8.55 
+        11.54L12 21.35z"/></svg>
         RESEP PRIORITAS
       </h3>
       <div class="separator"></div>
@@ -174,14 +156,12 @@
 
     <div class="box racikan">
       <h3>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M19 3H5c-1.1 0-2 .9-2 
-          2v14c0 1.1.9 2 2 2h14c1.1 0 
-          2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 
-          14c-2.76 0-5-2.24-5-5s2.24-5 
-          5-5 5 2.24 5 5-2.24 5-5 
-          5z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 
+        2v14c0 1.1.9 2 2 2h14c1.1 0 
+        2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 
+        14c-2.76 0-5-2.24-5-5s2.24-5 
+        5-5 5 2.24 5 5-2.24 5-5 
+        5z"/></svg>
         SEDANG DIRACIK
       </h3>
       <div class="separator"></div>
@@ -217,8 +197,7 @@
           document.getElementById("racikan").innerHTML = nomor
             .map((n, i) => i === nomor.length - 1
               ? `<span>${n}</span>`
-              : `<span>${n}</span><span style="color:#ccc; margin: 0 8px;">|</span>`)
-            .join("");
+              : `<span>${n}</span><span style="color:#ccc; margin: 0 8px;">|</span>`).join("");
         } else {
           document.getElementById("racikan").innerText = "-";
         }
@@ -232,7 +211,6 @@
     setInterval(updateClock, 1000);
     setInterval(fetchData, 3000);
 
-    // Motivasi bergantian
     const pesanMotivasi = [
         "Setiap hari adalah langkah menuju kesembuhan.",
         "Jangan menyerah, tubuh Anda sedang berjuang.",
@@ -259,7 +237,23 @@
     }
 
     tampilkanMotivasi();
-    setInterval(tampilkanMotivasi, 6000); // ganti setiap 6 detik
+    setInterval(tampilkanMotivasi, 6000);
+
+    // Auto Fullscreen untuk Smart TV
+    document.addEventListener("DOMContentLoaded", () => {
+      function goFullscreen() {
+        const el = document.documentElement;
+        if (el.requestFullscreen) {
+          el.requestFullscreen();
+        } else if (el.webkitRequestFullscreen) {
+          el.webkitRequestFullscreen();
+        } else if (el.msRequestFullscreen) {
+          el.msRequestFullscreen();
+        }
+      }
+      goFullscreen();
+      document.addEventListener("click", goFullscreen, { once: true });
+    });
   </script>
 </body>
 </html>
