@@ -1,108 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Monitoring Antrian</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status Antrian</title>
 <style>
-  body {
+  html, body {
     margin: 0;
-    background-color: #2B2D42; /* background gelap */
-    color: #EDF2F4; /* teks kontras */
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #584566; /* warna latar gelap */
     font-family: Arial, sans-serif;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  .header {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
-  .fullscreen-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #EDF2F4;
-    font-size: 28px;
-    padding: 10px;
-  }
-  .container {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-  }
-  .box {
-    background-color: #8D99AE;
-    padding: 20px 30px;
-    border-radius: 12px;
-    font-size: 2em;
     text-align: center;
-    min-width: 280px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    padding: 2vw;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    color: #F4C578; /* warna kontras */
+    font-size: 4vw;
+    margin-bottom: 2rem;
+  }
+
+  .box {
+    background-color: #745C97; /* warna box dari palet */
+    padding: 1.5rem 3rem;
+    border-radius: 12px;
+    margin: 0.5rem 0;
+    min-width: 300px;
+  }
+
+  .box p {
+    color: #FFFFFF;
+    font-size: 2vw;
+    margin: 0;
+  }
+
+  .button-fullscreen {
+    margin-top: 2rem;
+    padding: 1rem;
+    font-size: 2.5vw;
+    background-color: #F4C578;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #000;
   }
 </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Status Antrian</h1>
 
-<div class="header">
-  <button class="fullscreen-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
-</div>
+    <div class="box">
+      <p id="konfirmasi">Sedang memuat...</p>
+    </div>
 
-<div class="container" id="container"></div>
+    <div class="box">
+      <p id="antrian">Sedang memuat...</p>
+    </div>
 
-<script>
-const sheetURL = "https://script.google.com/macros/s/AKfycbxY27xj_t6dt2yN9nflP7FTfLpDqwKgXm8hXO1w-DOL8uD4iRJnV9x_sjwAaHwSjSxz4Q/exec";
+    <button class="button-fullscreen" onclick="openFullscreen()">📺</button>
+  </div>
 
-async function fetchData() {
-    try {
-        const url = sheetURL + "?t=" + new Date().getTime(); // cache buster
-        const res = await fetch(url, { cache: "no-store" });
+  <script>
+    async function fetchData() {
+      try {
+        const res = await fetch("URL_WEB_APP_APPS_SCRIPT_KAMU");
         const data = await res.json();
-        renderData(data);
-    } catch (err) {
-        console.error("Gagal ambil data:", err);
+        document.getElementById("konfirmasi").textContent = "Konfirmasi: " + (data["sedang dikonfirmasi ke dokter"] || "-");
+        document.getElementById("antrian").textContent = "Antrian: " + (data["nomor antrian"] || "-");
+      } catch (err) {
+        document.getElementById("konfirmasi").textContent = "Gagal memuat data";
+        document.getElementById("antrian").textContent = "";
+      }
     }
-}
 
-function renderData(data) {
-    const container = document.getElementById("container");
-    container.innerHTML = "";
-
-    if (data["antrian"]) {
-        container.innerHTML += `<div class="box">Antrian: ${data["antrian"]}</div>`;
+    function openFullscreen() {
+      let elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
     }
-    if (data["sedang diperiksa"]) {
-        container.innerHTML += `<div class="box">Sedang Diperiksa: ${data["sedang diperiksa"]}</div>`;
-    }
-    if (data["sedang dikonfirmasi ke dokter"]) {
-        container.innerHTML += `<div class="box">Konfirmasi Dokter: ${data["sedang dikonfirmasi ke dokter"]}</div>`;
-    }
-}
 
-// Tombol Fullscreen
-document.getElementById("fullscreenBtn").addEventListener("click", () => {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-            console.error(`Gagal fullscreen: ${err.message}`);
-        });
-    } else {
-        document.exitFullscreen();
-    }
-});
-
-// Ambil data pertama kali
-fetchData();
-
-// Refresh tiap 5 detik
-setInterval(fetchData, 5000);
-</script>
-
+    fetchData();
+    setInterval(fetchData, 5000);
+  </script>
 </body>
 </html>
