@@ -1,94 +1,153 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tampilan dengan Fullscreen</title>
-<style>
+  <meta charset="UTF-8" />
+  <title>Display Antrian Apotek - RSUD Sultan Suriansyah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#584566;
+      --red:#BF5268;
+      --orange:#F3915A;
+      --yellow:#F4C578;
+      --green:#86A874;
+      --green-dark:#54856B;
+      --teal:#446870;
+      --ink:#ffffff;
+      --ink-dark:#584566;
+    }
+
+    * { box-sizing: border-box; }
     body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #2F4858; /* warna background gelap dari palet */
-        color: #FFFFFF;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: #cfe7ff;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Tombol Fullscreen */
-    .fullscreen-btn {
-        position: fixed;
-        top: 16px;
-        right: 16px;
-        background-color: #54856B; /* hijau dari palet */
-        border: none;
-        border-radius: 50%;
-        padding: 10px;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        transition: background-color 0.2s ease;
+    h1, h2, h3 { margin: 10px 0; }
+
+    h2 {
+      font-weight: 600;
+      color: var(--yellow);
+      letter-spacing: .5px;
     }
 
-    .fullscreen-btn:hover {
-        background-color: #446870; /* warna kontras dari palet */
+    h3 {
+      font-size: 28px;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: inherit;
+      margin-top: 0;
     }
 
-    /* SVG ikon */
-    .fullscreen-btn svg {
-        width: 20px;
-        height: 20px;
-        fill: #fff;
-    }
-
-    /* Contoh konten tengah */
     .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-size: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      width: 100%;
     }
-</style>
-</head>
-<body>
 
-<!-- Tombol Fullscreen -->
-<button class="fullscreen-btn" onclick="toggleFullScreen()" title="Full Screen">
-    <svg id="fullscreen-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <!-- Icon masuk fullscreen -->
-        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zm-3-12v2h3v3h2V5h-5z"/>
-    </svg>
-</button>
-
-<!-- Konten utama -->
-<div class="container">
-    Tampilan Konten
-</div>
-
-<script>
-function toggleFullScreen() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
+    .box {
+      flex: 1;
+      min-width: 260px;
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      color: var(--ink);
     }
-}
 
-document.addEventListener("fullscreenchange", () => {
-    const icon = document.getElementById("fullscreen-icon");
+    /* Warna box sesuai palet */
+    .umum      { background-color: var(--green-dark); color: var(--ink); }
+    .bpjs      { background-color: var(--green);      color: var(--ink-dark); }
+    .prioritas { background-color: var(--red);        color: var(--ink); }
+    .racikan   { background-color: var(--orange);     color: var(--ink); flex-basis: 100%; margin-top: 20px; }
+    .konfirmasi{ background-color: var(--yellow);     color: var(--ink-dark); flex-basis: 100%; margin-top: 20px; }
 
-    if (document.fullscreenElement) {
-        // Icon keluar fullscreen
-        icon.innerHTML = `<path d="M5 8h2V5h3V3H5v5zm9-5v2h3v3h2V3h-5zm3 13h-3v3h-2v5h5v-5zm-9 3v-3H5v-2H3v5h5z"/>`;
-    } else {
-        // Icon masuk fullscreen
-        icon.innerHTML = `<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zm-3-12v2h3v3h2V5h-5z"/>`;
+    h1 {
+      font-size: clamp(38px, 7vw, 72px);
+      font-weight: 700;
+      margin: 10px 0 0 0;
+      line-height: 1;
     }
-});
-</script>
 
-</body>
-</html>
+    #racikan, #konfirmasiList {
+      font-size: clamp(36px, 6.5vw, 64px);
+      line-height: 1.4;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    #clock {
+      font-size: 18px;
+      margin-top: 4px;
+      color: #f4f4f4;
+      opacity: .9;
+    }
+
+    .separator {
+      height: 4px;
+      background-color: rgba(255,255,255,0.45);
+      margin: 12px auto 8px;
+      border-radius: 2px;
+      width: 80%;
+    }
+    .bpjs .separator, .konfirmasi .separator {
+      background-color: rgba(0,0,0,0.18);
+    }
+
+    svg { width: 24px; height: 24px; fill: currentColor; }
+
+    #motivasi {
+      position: fixed;
+      bottom: 0;
+      left: 0; right: 0;
+      background-color: var(--teal);
+      color: var(--ink);
+      text-align: center;
+      font-size: clamp(16px, 2.2vw, 22px);
+      font-weight: 700;
+      padding: 10px 12px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      transition: opacity 1s ease-in-out;
+      opacity: 1;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.35);
+      z-index: 10;
+    }
+
+    /* Tombol fullscreen (ikon) */
+    .fullscreen-btn {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      background-color: var(--green-dark);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: background-color .2s ease;
+    }
+    .fullscreen-btn:hover { background-color: var(--teal); }
+    .fullscreen-btn svg { width: 20px; height: 20px; fill: #fff; }
+
+    @media (min-width: 1400px) {
+      h1 { font-size: 84px;
