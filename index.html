@@ -6,20 +6,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --dark1: #4E5470;  /* gelap biru keunguan */
-      --dark2: #446870;  /* gelap biru toska */
-      --accent1: #BF5268; /* merah keunguan */
-      --accent2: #F3915A; /* oranye kontras */
-      --accent3: #F4C578; /* kuning pastel */
-      --green1: #86A874;  /* hijau lembut */
-      --green2: #54856B;  /* hijau toska gelap */
-      --purple: #584566;  /* ungu tua */
+      --dark1: #4E5470;
+      --dark2: #446870;
+      --accent1: #BF5268;
+      --accent2: #F3915A;
+      --accent3: #F4C578;
+      --green1: #86A874;
+      --green2: #54856B;
+      --purple: #584566;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: var(--dark1); /* gelap */
-      color: var(--accent3); /* kuning pastel untuk teks */
+      background-color: var(--dark1);
+      color: var(--accent3);
       text-align: center;
       padding: 20px;
       margin-bottom: 60px;
@@ -32,6 +32,7 @@
       color: var(--accent3);
     }
 
+    /* Perubahan warna h3 */
     h3 {
       font-size: 28px;
       font-weight: 600;
@@ -40,7 +41,16 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      color: var(--accent3);
+      color: var(--purple); /* ungu tua default */
+    }
+    h3 svg {
+      fill: var(--purple);
+    }
+    .bpjs h3, .konfirmasi h3 {
+      color: white; /* untuk latar gelap */
+    }
+    .bpjs h3 svg, .konfirmasi h3 svg {
+      fill: white;
     }
 
     .container {
@@ -100,7 +110,6 @@
     svg {
       width: 24px;
       height: 24px;
-      fill: white;
     }
 
     #motivasi {
