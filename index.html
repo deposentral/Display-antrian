@@ -62,7 +62,7 @@
   <script>
     async function fetchData() {
       try {
-        const res = await fetch("URL_WEB_APP_APPS_SCRIPT_KAMU"); // ganti URL Web App
+        const res = await fetch("https://script.google.com/macros/s/AKfycbxY27xj_t6dt2yN9nflP7FTfLpDqwKgXm8hXO1w-DOL8uD4iRJnV9x_sjwAaHwSjSxz4Q/exec"); // ganti URL Web App
         const data = await res.json();
         document.getElementById("konfirmasi").textContent = "Konfirmasi: " + (data["sedang dikonfirmasi ke dokter"] || "-");
         document.getElementById("antrian").textContent = "Antrian: " + (data["nomor antrian"] || "-");
@@ -89,3 +89,4 @@
   </script>
 </body>
 </html>
+
