@@ -5,7 +5,6 @@
   <title>Display Antrian Apotek - Fresh & Health</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Warna asli dari file kamu */
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #265158; /* Gelap dari palette */
@@ -62,7 +61,7 @@
     .bpjs { background-color: #9fddd2; color: #265158; }
     .prioritas { background-color: #eb4a04; }
     .racikan { background-color: #fe8e36; flex-basis: 100%; margin-top: 20px; }
-    .konfirmasi { background-color: #4da6a1; flex-basis: 100%; } /* box baru */
+    .konfirmasi { background-color: #4da6a1; flex-basis: 100%; }
 
     h1 {
       font-size: 60px;
@@ -119,7 +118,172 @@
   </style>
 </head>
 <body>
-  <!-- Bagian HTML kamu tetap sama -->
-  <!-- ... lanjutkan dengan isi body dan script seperti di file lama -->
+  <h2>RSUD SULTAN SURIANSYAH</h2>
+  <div id="clock"></div>
+
+  <div class="container">
+    <div class="box umum">
+      <h3>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+        10-4.48 10-10S17.52 2 12 2zm1 17.93c-2.83.48-5.51-1.51-6-4.34-.49-2.82 
+        1.5-5.5 4.34-5.99V5h2v4.59c2.83.49 4.82 3.17 4.33 5.99-.49 
+        2.83-3.17 4.82-5.99 4.34z"/></svg>
+        RESEP UMUM
+      </h3>
+      <div class="separator"></div>
+      <h1 id="umum">A00</h1>
+    </div>
+
+    <div class="box bpjs">
+      <h3>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4.14c-3.95 0-7.17 3.22-7.17 
+        7.17s3.22 7.17 7.17 7.17 7.17-3.22 7.17-7.17S15.95 
+        4.14 12 4.14zm0 12.35c-2.86 0-5.18-2.32-5.18-5.18S9.14 
+        6.14 12 6.14s5.18 2.32 5.18 5.18-2.32 5.18-5.18 
+        5.18z"/></svg>
+        RESEP BPJS
+      </h3>
+      <div class="separator"></div>
+      <h1 id="bpjs">B00</h1>
+    </div>
+
+    <div class="box prioritas">
+      <h3>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 
+        12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 
+        0 3.41.81 4.5 2.09C13.09 3.81 14.76 
+        3 16.5 3 19.58 3 22 5.42 22 
+        8.5c0 3.78-3.4 6.86-8.55 
+        11.54L12 21.35z"/></svg>
+        RESEP PRIORITAS
+      </h3>
+      <div class="separator"></div>
+      <h1 id="prioritas">C00</h1>
+    </div>
+
+    <div class="box racikan">
+      <h3>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 
+        2v14c0 1.1.9 2 2 2h14c1.1 0 
+        2-.9 2-2V5c1.1 0-0.9-2-2-2zm-7 
+        14c-2.76 0-5-2.24-5-5s2.24-5 
+        5-5 5 2.24 5 5-2.24 5-5 
+        5z"/></svg>
+        SEDANG DIRACIK
+      </h3>
+      <div class="separator"></div>
+      <div id="racikan">-</div>
+    </div>
+
+    <div class="box konfirmasi">
+      <h3>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+        10-4.48 10-10S17.52 2 12 2zm1 17.93c-2.83.48-5.51-1.51-6-4.34-.49-2.82 
+        1.5-5.5 4.34-5.99V5h2v4.59c2.83.49 4.82 3.17 4.33 5.99-.49 
+        2.83-3.17 4.82-5.99 4.34z"/></svg>
+        SEDANG DIKONFIRMASI KE DOKTER
+      </h3>
+      <div class="separator"></div>
+      <div id="konfirmasi">-</div>
+    </div>
+  </div>
+
+  <div id="motivasi"></div>
+
+  <script>
+    const sheetUrlBase = "https://script.google.com/macros/s/AKfycbyuQ7AEtiEwL2Mk3QxcB9q_ySvT2awXFc3mU2nYYABPrmXx_G2dYLCvPfqmD0S7PqFL9w/exec";
+
+    function updateClock() {
+      const now = new Date();
+      const waktu = now.toLocaleString("id-ID", {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      document.getElementById("clock").innerText = waktu;
+    }
+
+    async function fetchData() {
+      try {
+        const res = await fetch(sheetUrlBase + "?_t=" + Date.now(), { cache: "no-store" });
+        const data = await res.json();
+
+        document.getElementById("umum").innerText = data.umum || "-";
+        document.getElementById("bpjs").innerText = data.bpjs || "-";
+        document.getElementById("prioritas").innerText = data.prioritas || "-";
+
+        if (data.racikan && data.racikan !== "-") {
+          const nomorR = data.racikan.split(",").map(n => n.trim()).filter(n => n);
+          document.getElementById("racikan").innerHTML = nomorR
+            .map((n, i) => i === nomorR.length - 1
+              ? `<span>${n}</span>`
+              : `<span>${n}</span><span style="color:#ccc; margin: 0 8px;">|</span>`).join("");
+        } else {
+          document.getElementById("racikan").innerText = "-";
+        }
+
+        const konfirmasiVal = data.konfirmasi || data["sedang dikonfirmasi ke dokter"] || "-";
+        if (konfirmasiVal !== "-") {
+          const nomorK = konfirmasiVal.split(",").map(n => n.trim()).filter(n => n);
+          document.getElementById("konfirmasi").innerHTML = nomorK
+            .map((n, i) => i === nomorK.length - 1
+              ? `<span>${n}</span>`
+              : `<span>${n}</span><span style="color:#ccc; margin: 0 8px;">|</span>`).join("");
+        } else {
+          document.getElementById("konfirmasi").innerText = "-";
+        }
+
+      } catch (e) {
+        console.error("Gagal mengambil data:", e);
+      }
+    }
+
+    updateClock();
+    fetchData();
+    setInterval(updateClock, 1000);
+    setInterval(fetchData, 3000);
+
+    const pesanMotivasi = [
+      "Setiap hari adalah langkah menuju kesembuhan.",
+      "Jangan menyerah, tubuh Anda sedang berjuang.",
+      "Kesabaran adalah bagian dari proses penyembuhan.",
+      "Tetap tersenyum, itu obat terbaik.",
+      "Anda lebih kuat dari yang Anda kira.",
+      "Hari ini sakit, besok insyaAllah lebih baik.",
+      "Semangat! Kesembuhan sudah menunggu.",
+      "Sakit itu sementara, semangat itu selamanya.",
+      "Bersyukur untuk setiap kemajuan sekecil apapun.",
+      "Perjalanan menuju sehat dimulai dari pikiran yang kuat."
+    ];
+
+    let indexMotivasi = 0;
+    const motivasiEl = document.getElementById("motivasi");
+
+    function tampilkanMotivasi() {
+      motivasiEl.style.opacity = 0;
+      setTimeout(() => {
+        motivasiEl.textContent = pesanMotivasi[indexMotivasi];
+        motivasiEl.style.opacity = 1;
+        indexMotivasi = (indexMotivasi + 1) % pesanMotivasi.length;
+      }, 1000);
+    }
+
+    tampilkanMotivasi();
+    setInterval(tampilkanMotivasi, 6000);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      function goFullscreen() {
+        const el = document.documentElement;
+        if (el.requestFullscreen) {
+          el.requestFullscreen();
+        } else if (el.webkitRequestFullscreen) {
+          el.webkitRequestFullscreen();
+        } else if (el.msRequestFullscreen) {
+          el.msRequestFullscreen();
+        }
+      }
+      goFullscreen();
+      document.addEventListener("click", goFullscreen, { once: true });
+    });
+  </script>
 </body>
 </html>
