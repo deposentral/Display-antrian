@@ -6,19 +6,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --dark1: #4E5470;   /* background utama */
-      --accent1: #E68A9C; /* merah muda pastel */
+      --dark1: #4E5470;  /* gelap biru keunguan */
+      --dark2: #446870;  /* gelap biru toska */
+      --accent1: #BF5268; /* merah keunguan */
       --accent2: #F3915A; /* oranye kontras */
       --accent3: #F4C578; /* kuning pastel */
-      --green1: #B7D3A8;  /* hijau pastel lembut */
-      --green2: #94C9B0;  /* hijau toska pastel */
+      --green1: #86A874;  /* hijau lembut */
+      --green2: #54856B;  /* hijau toska gelap */
       --purple: #584566;  /* ungu tua */
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: var(--dark1);
-      color: var(--accent3);
+      background-color: var(--dark1); /* gelap */
+      color: var(--accent3); /* kuning pastel untuk teks */
       text-align: center;
       padding: 20px;
       margin-bottom: 60px;
@@ -39,7 +40,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      color: var(--purple); /* semua judul box ungu tua */
+      color: var(--accent3);
     }
 
     .container {
@@ -56,40 +57,20 @@
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: white;
     }
 
-    .umum {
-      background-color: var(--green2);
-      color: var(--purple);
-    }
-
-    .bpjs {
-      background-color: var(--green1);
-      color: var(--purple);
-    }
-
-    .prioritas {
-      background-color: var(--accent1);
-      color: var(--purple);
-    }
-
-    .racikan {
-      background-color: var(--accent1);
-      flex-basis: 100%;
-      margin-top: 20px;
-      color: var(--purple);
-    }
-
-    .konfirmasi {
-      background-color: var(--accent2);
-      flex-basis: 100%;
-      color: white; /* khusus konfirmasi teks putih */
-    }
+    .umum { background-color: var(--green2); }
+    .bpjs { background-color: var(--green1); color: var(--dark1); }
+    .prioritas { background-color: var(--accent2); }
+    .racikan { background-color: var(--accent1); flex-basis: 100%; margin-top: 20px; }
+    .konfirmasi { background-color: var(--purple); flex-basis: 100%; }
 
     h1 {
       font-size: 60px;
       font-weight: bold;
       margin: 10px 0;
+      color: white;
     }
 
     #racikan, #konfirmasi {
@@ -99,6 +80,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
+      color: white;
     }
 
     #clock {
@@ -118,7 +100,7 @@
     svg {
       width: 24px;
       height: 24px;
-      fill: var(--purple); /* ikon ikut ungu tua */
+      fill: white;
     }
 
     #motivasi {
