@@ -5,151 +5,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Status Antrian</title>
 <style>
-  :root {
-    --dark1: #4E5470;
-    --dark2: #446870;
-    --accent1: #BF5268;
-    --accent2: #F3915A;
-    --accent3: #F4C578;
-    --green1: #86A874;
-    --green2: #54856B;
-    --purple: #584566;
-  }
-
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--dark1);
-    color: var(--accent3);
-    text-align: center;
-    padding: 20px;
-    margin-bottom: 60px;
-  }
-
-  h1, h2, h3 { margin: 10px 0; }
-
-  h2 {
-    font-weight: 600;
-    color: var(--accent3);
-  }
-
-  h3 {
-    font-size: 28px;
-    font-weight: 600;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    color: var(--purple);
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #584566; /* Ungu gelap */
+    font-family: Arial, sans-serif;
   }
 
   .container {
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    padding: 2vw;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    color: #F4C578; /* Kuning pastel */
+    font-size: 4vw;
+    margin-bottom: 2rem;
   }
 
   .box {
-    flex: 1;
-    min-width: 250px;
-    padding: 25px;
+    background-color: #4E5470; /* Abu-biru gelap */
+    color: #FFFFFF;
+    padding: 1.5rem 2rem;
+    margin: 1rem 0;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    color: white;
+    font-size: 2.5vw;
+    min-width: 300px;
   }
 
-  .umum { background-color: var(--green2); }
-  .bpjs { background-color: var(--green1); color: var(--dark1); }
-  .prioritas { background-color: var(--accent1); }
-  .racikan { background-color: var(--green2); flex-basis: 100%; margin-top: 20px; }
-  .konfirmasi { background-color: var(--accent2); flex-basis: 100%; }
-
-  h1 {
-    font-size: 60px;
-    font-weight: bold;
-    margin: 10px 0;
-    color: white;
+  #konfirmasi {
+    background-color: #F3915A; /* Oranye */
   }
 
-  #racikan, #konfirmasi {
-    font-size: 60px;
-    line-height: 1.5;
+  #antrian {
+    background-color: #86A874; /* Hijau pastel */
+  }
+
+  .button-fullscreen {
+    margin-top: 2rem;
+    padding: 1rem;
+    font-size: 2.5vw;
+    background-color: #BF5268; /* Merah */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+    width: 70px;
+    height: 70px;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    gap: 15px;
-    color: white;
   }
 
-  #clock {
-    font-size: 18px;
-    margin-top: 5px;
-    color: var(--accent3);
-  }
-
-  .separator {
-    height: 4px;
-    background-color: rgba(255,255,255,0.4);
-    margin: 10px auto;
-    border-radius: 2px;
-    width: 80%;
-  }
-
-  svg {
-    width: 24px;
-    height: 24px;
-    fill: var(--purple);
-  }
-
-  #motivasi {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: var(--green2);
-    color: var(--accent3);
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    padding: 10px 0;
-    font-family: 'Segoe UI', sans-serif;
-    transition: opacity 1s ease-in-out;
-    opacity: 1;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
-    z-index: 1000;
+  .button-fullscreen:hover {
+    background-color: #F3915A; /* Oranye */
   }
 </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Status Antrian</h1>
+    <div id="konfirmasi" class="box">Sedang memuat...</div>
+    <div id="antrian" class="box">Sedang memuat...</div>
+    <button class="button-fullscreen" onclick="openFullscreen()">📺</button>
+  </div>
 
-<h1>Status Antrian</h1>
-<div class="container">
-  <div class="box umum">
-    <h3>Resep Umum</h3>
-    <div id="umum">-</div>
-  </div>
-  <div class="box bpjs">
-    <h3>Resep BPJS</h3>
-    <div id="bpjs">-</div>
-  </div>
-  <div class="box prioritas">
-    <h3>Resep Prioritas</h3>
-    <div id="prioritas">-</div>
-  </div>
-  <div class="box racikan">
-    <h3>Sedang Diracik</h3>
-    <div id="racikan">-</div>
-  </div>
-  <div class="box konfirmasi">
-    <h3>Konfirmasi</h3>
-    <div id="konfirmasi">-</div>
-  </div>
-</div>
+  <script>
+    async function fetchData() {
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbyuQ7AEtiEwL2Mk3QxcB9q_ySvT2awXFc3mU2nYYABPrmXx_G2dYLCvPfqmD0S7PqFL9w/exec");
+        const data = await res.json();
+        document.getElementById("konfirmasi").textContent = "Konfirmasi: " + (data["sedang dikonfirmasi ke dokter"] || "-");
+        document.getElementById("antrian").textContent = "Antrian: " + (data["nomor antrian"] || "-");
+      } catch (err) {
+        document.getElementById("konfirmasi").textContent = "Gagal memuat data";
+        document.getElementById("antrian").textContent = "";
+      }
+    }
 
-<div id="clock"></div>
+    function openFullscreen() {
+      let elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    }
 
-<div id="motivasi">Tetap Semangat!</div>
-
+    // Update data setiap 3 detik
+    fetchData();
+    setInterval(fetchData, 3000);
+  </script>
 </body>
 </html>
